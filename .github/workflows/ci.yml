@@ -24,7 +24,7 @@ jobs:
         env:
           CI: true
       - name: build project
-        if: github.event_name == "push"
+        if: github.event_name == 'push'
         run: npm run build
       - name: install surge
         run: npm i -g surge
