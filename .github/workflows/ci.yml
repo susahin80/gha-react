@@ -24,6 +24,10 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
+      - name: Echo Cache hit
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: |
+          echo "CACHE HIT"
       - name: install dependencies
         run: npm ci
       - name: check code format
