@@ -16,6 +16,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+          <h1>{new Date().toTimeString()}</h1>
         </a>
       </header>
     </div>
