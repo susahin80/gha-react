@@ -15,6 +15,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-key: ${{ runner.os }}-build-${{ env.cache-name }}-
       - name: install dependencies
         run: npm ci
       - name: check code format
