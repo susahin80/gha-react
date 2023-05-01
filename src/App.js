@@ -16,7 +16,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-          <h1>v1</h1>
+          <h1>v2</h1>
         </a>
       </header>
     </div>
