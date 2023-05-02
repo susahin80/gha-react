@@ -3,6 +3,8 @@ on: push
 jobs:
   testing-action:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
       - name: Get Code
         uses: actions/checkout@v3
