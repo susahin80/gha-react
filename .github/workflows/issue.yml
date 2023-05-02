@@ -1,0 +1,17 @@
+name: Create Issue
+jobs:
+  testing-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create issue
+        uses: ./.github/actions/issue
+        id: issue
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: issue title
+          body: issue body
+          assignees: |
+            susahin80
+      - name: display issue output
+        run: |
+          echo ${{ steps.issue.outputs.issue }}
