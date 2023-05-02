@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
     steps:
       - name: Get Code
         uses: actions/checkout@v3
@@ -66,8 +69,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}
       - name: deploy to staging
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' &&  && github.ref == 'refs/heads/develop'
         run: npx surge --project ./build --domain utter-picture.surge.sh
+      - name: deploy to prod
+        if: github.event_name == 'push' &&  && github.ref == 'refs/heads/main'
+        run: npx surge --project ./build --domain sassy-boot.surge.sh
+      - name: Upload coverage reports to Codecov
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: npx codecov
         env:
-          SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
